@@ -169,17 +169,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-
-
-void caps_word_set_user(bool active) {
-    if (active) {
-        // Do something when Caps Word activates.
-        // set the rgb to blinking red
-        rgblight_mode(1);
-        rgblight_sethsv(0,255,255);
-    } else {
-        // Do something when Caps Word deactivates.
-        // revert the rgb to the original color
-        rgblight_mode(0);
-    }
-}
