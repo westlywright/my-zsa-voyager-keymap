@@ -8,3 +8,5 @@ ORYX_ENABLE = yes
 RGB_MATRIX_CUSTOM_KB = yes
 CAPS_WORD_ENABLE = yes
 COMBO_ENABLE = yes
+SRC += features/achordion.c
+
