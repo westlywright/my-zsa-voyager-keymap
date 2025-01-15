@@ -176,3 +176,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void housekeeping_task_user(void) {
   achordion_task();
 }
+
+uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t* record) {
+  // If you quickly hold a tap-hold key after tapping it, the tap action is
+  // repeated. Key repeating is useful e.g. for Vim navigation keys, but can
+  // lead to missed triggers in fast typing. Here, returning 0 means we
+  // instead want to "force hold" and disable key repeating.
+  switch (keycode) {
+    case HOME_N:
+    // Repeating is useful for Vim navigation keys.
+    case QHOME_J:
+    case QHOME_K:
+    case QHOME_L:
+      return QUICK_TAP_TERM;  // Enable key repeating.
+    default:
+      return 0;  // Otherwise, force hold and disable key repeating.
+  }
+}
+
+bool achordion_streak_continue(uint16_t keycode) {
+  // If mods other than shift or AltGr are held, don't continue the streak.
+  if (get_mods() & (MOD_MASK_CG | MOD_BIT_LALT)) return false;
+  // This function doesn't get called for holds, so convert to tap keycodes.
+  if (IS_QK_MOD_TAP(keycode)) {
+    keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+  }
+  if (IS_QK_LAYER_TAP(keycode)) {
+    keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+  }
+  // Regular letters and punctuation continue the streak.
+  if (keycode >= KC_A && keycode <= KC_Z) return true;
+  switch (keycode) {
+    case KC_DOT:
+    case KC_COMMA:
+    case KC_QUOTE:
+    case KC_SPACE:
+      return true;
+  }
+  return false;  // All other keys end the streak.
+}
