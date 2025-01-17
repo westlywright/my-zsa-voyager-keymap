@@ -19,8 +19,9 @@
 #define NO_AUTO_SHIFT_TAB
 #define NO_AUTO_SHIFT_SPECIAL
 #define NO_AUTO_SHIFT_ALPHA
-#define SERIAL_NUMBER "rll7w/XbBlL9"
+#define SERIAL_NUMBER "rll7w/jZl7Y7"
 #define LAYER_STATE_8BIT
+#define COMBO_COUNT 3
 
 #define RGB_MATRIX_STARTUP_SPD 60
 
