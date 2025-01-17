@@ -3,7 +3,6 @@
 #include "i18n.h"
 #define MOON_LED_LEVEL LED_LEVEL
 #define ML_SAFE_RANGE SAFE_RANGE
-#include "features/achordion.h"
 
 
 enum custom_keycodes {
@@ -20,23 +19,9 @@ enum tap_dance_codes {
   DANCE_1,
   DANCE_2,
 };
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_moonlander(
-<<<<<<< HEAD
-    KC_GRAVE,       KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           LGUI(KC_LBRC),                                  RGUI(KC_RBRC),  KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINUS,
-    ALL_T(KC_DELETE),KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           OSL(1),                                         TG(3),          KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,
-    MT(MOD_LCTL, KC_ESCAPE),KC_A,           KC_S,           KC_D,           KC_F,           KC_G,           OSM(MOD_LSFT),                                                                  CW_TOGG,        KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOTE,
-    SC_LSPO,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         MT(MOD_RGUI, KC_SLASH),SC_RSPC,
-    KC_MEH,         KC_LEFT,        KC_RIGHT,       KC_LEFT_ALT,    KC_LEFT_GUI,    TG(2),                                                                                                          KC_MEDIA_PLAY_PAUSE,KC_LBRC,        KC_RBRC,        KC_UP,          KC_DOWN,        OSL(4),
-    KC_SPACE,       KC_BSPC,        LGUI(KC_SPACE),                 KC_EQUAL,       KC_TAB,         KC_ENTER
-  ),
-  [1] = LAYOUT_moonlander(
-    KC_TRANSPARENT, KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, LSFT(KC_F2),    KC_F12,         LGUI(LSFT(KC_F12)),LALT(LSFT(KC_F12)),KC_TRANSPARENT,
-    TO(0),          KC_F11,         KC_F12,         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_MAC_CUT,     KC_MAC_COPY,    KC_MAC_PASTE,   KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_PAGE_UP,     KC_PGDN,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-=======
     KC_GRAVE,       KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           LGUI(KC_LBRC),                                  RGUI(KC_RBRC),  KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINUS,
     ALL_T(KC_DELETE),KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           OSL(1),                                         TG(3),          KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,
     MT(MOD_LCTL, KC_ESCAPE),KC_A,           TD(DANCE_0),    KC_D,           KC_F,           KC_G,           OSM(MOD_LSFT),                                                                  CW_TOGG,        KC_H,           KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOTE,
@@ -50,7 +35,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TO(0),          KC_F11,         KC_F12,         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                 TO(4),          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_MAC_CUT,     KC_MAC_COPY,    KC_MAC_PASTE,   KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_PAGE_UP,     KC_PGDN,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
->>>>>>> origin/oryx
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
   ),
   [2] = LAYOUT_moonlander(
@@ -140,105 +124,6 @@ bool rgb_matrix_indicators_user(void) {
   return true;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_achordion(keycode, record)) { return false; }
-  switch (keycode) {
-
-    case RGB_SLD:
-        if (rawhid_state.rgb_control) {
-            return false;
-        }
-        if (record->event.pressed) {
-            rgblight_mode(1);
-        }
-        return false;
-    case HSV_215_255_250:
-        if (rawhid_state.rgb_control) {
-            return false;
-        }
-        if (record->event.pressed) {
-            rgblight_mode(1);
-            rgblight_sethsv(215,255,250);
-        }
-        return false;
-    case HSV_176_255_255:
-        if (rawhid_state.rgb_control) {
-            return false;
-        }
-        if (record->event.pressed) {
-            rgblight_mode(1);
-            rgblight_sethsv(176,255,255);
-        }
-        return false;
-    case HSV_45_255_241:
-        if (rawhid_state.rgb_control) {
-            return false;
-        }
-        if (record->event.pressed) {
-            rgblight_mode(1);
-            rgblight_sethsv(45,255,241);
-        }
-        return false;
-  }
-  return true;
-}
-
-
-void housekeeping_task_user(void) {
-  achordion_task();
-}
-
-bool achordion_eager_mod(uint8_t mod) {
-  switch (mod) {
-    case MOD_LSFT:
-    case MOD_RSFT:
-    case MOD_LCTL:
-    case MOD_RCTL:
-      return true;  // Eagerly apply Shift and Ctrl mods.
-
-    default:
-      return false;
-  }
-}
-
-// uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t* record) {
-//   // If you quickly hold a tap-hold key after tapping it, the tap action is
-//   // repeated. Key repeating is useful e.g. for Vim navigation keys, but can
-//   // lead to missed triggers in fast typing. Here, returning 0 means we
-//   // instead want to "force hold" and disable key repeating.
-//   switch (keycode) {
-//     case HOME_N:
-//     // Repeating is useful for Vim navigation keys.
-//     case QHOME_J:
-//     case QHOME_K:
-//     case QHOME_L:
-//       return QUICK_TAP_TERM;  // Enable key repeating.
-//     default:
-//       return 0;  // Otherwise, force hold and disable key repeating.
-//   }
-// }
-
-bool achordion_streak_continue(uint16_t keycode) {
-  // If mods other than shift or AltGr are held, don't continue the streak.
-  if (get_mods() & (MOD_MASK_CG | MOD_BIT_LALT)) return false;
-  // This function doesn't get called for holds, so convert to tap keycodes.
-  if (IS_QK_MOD_TAP(keycode)) {
-    keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-  }
-  if (IS_QK_LAYER_TAP(keycode)) {
-    keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
-  }
-  // Regular letters and punctuation continue the streak.
-  if (keycode >= KC_A && keycode <= KC_Z) return true;
-  switch (keycode) {
-    case KC_DOT:
-    case KC_COMMA:
-    case KC_QUOTE:
-    case KC_SPACE:
-      return true;
-  }
-  return false;  // All other keys end the streak.
-}
 typedef struct {
     bool is_press_action;
     uint8_t step;
